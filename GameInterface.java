@@ -8,8 +8,10 @@ public class GameInterface extends JFrame {
     private JButton playButton;
     private JButton helpButton;
     private JButton quitButton;
+    private JButton MusicButton;
     private JLabel label;
     private SoundTrack soundTrack;
+    private boolean MusicPlaying;
 
     public GameInterface() {
 
@@ -23,6 +25,25 @@ public class GameInterface extends JFrame {
         setIconImage(MeteorIcon.getImage());
 
         soundTrack = new SoundTrack(); //เป็นคลาสที่รับเสียงจากเครื่องผู้ใช้มา ไฟล์.wav
+        soundTrack.SoundBackground("Materials/to_the_shining_sky-241513.wav");
+
+        MusicPlaying = true;
+
+        MusicButton = createButton("Stop Music");
+        MusicButton.addActionListener(e -> {
+            if(MusicPlaying) {
+                soundTrack.stopBackground(); // หยุดเพลงพื้นหลัง
+                soundTrack.playSound("Materials/mouse-click-sound-233951.wav"); // เสียงคลิก
+                MusicPlaying = false; // เปลี่ยนสถานะเพลง
+                MusicButton.setText("Play Music"); // เปลี่ยนข้อความปุ่ม
+            }
+            else {
+                soundTrack.SoundBackground("Materials/to_the_shining_sky-241513.wav");    
+                soundTrack.playSound("Materials/mouse-click-sound-233951.wav"); // เสียงคลิก
+                MusicPlaying = true; // เปลี่ยนสถานะเพลง
+                MusicButton.setText("Stop Music"); // เปลี่ยนข้อความปุ่ม
+            }
+    });
 
         // สร้างคอมโพเนนต์ต่าง ๆ
         label = new JLabel("Meteor Strike!", SwingConstants.CENTER);
@@ -61,18 +82,19 @@ public class GameInterface extends JFrame {
         add(label, gbc);
 
         // ตั้งค่าให้ button อยู่ตรงกลาง
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(3, 1, 10, 10)); // ใช้ GridLayout เพื่อจัดปุ่มในแนวตั้ง
-        buttonPanel.add(playButton);
-        buttonPanel.add(helpButton);
-        buttonPanel.add(quitButton);
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(4, 1, 10, 10)); // ใช้ GridLayout เพื่อจัดปุ่มในแนวตั้ง
+        panel.add(playButton);
+        panel.add(helpButton);
+        panel.add(quitButton);
+        panel.add(MusicButton);
 
         // ตั้งค่าให้ panel ปุ่มอยู่ตรงกลาง
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.CENTER;
 
-        add(buttonPanel, gbc);
+        add(panel, gbc);
 
         //Event ที่จะรอรับการกดกากบาตบนหน้าจอเฟรมหลักแล้วส่งไปที่เมธอดบรรทัดที่ 96
         addWindowListener(new WindowAdapter() {
@@ -116,10 +138,10 @@ public class GameInterface extends JFrame {
                     +File.separator + "Materials/Question-mark.png");
         helpDialog.setIconImage(HelpIcon.getImage());
 
-        JTextArea text = new JTextArea("                        Help for the Meteor Strike Game:\n\n" + 
-                " 1. Start the game by clicking the Play button.\n" +
-                " 2. For more information, click the Help button again.\n" +
-                " 3. Click Quit to exit the game.");
+        JTextArea text = new JTextArea("                      Help for the Meteor Strike Game:\n\n" + 
+                "       1. Start the game by clicking the Play button.\n" +
+                "       2. For more information, click the Help button again.\n" +
+                "       3. Click Quit to exit the game.");
         text.setEditable(false); 
         text.setFont(new Font("Serif", Font.PLAIN, 14));   
         text.setForeground(Color.WHITE);
