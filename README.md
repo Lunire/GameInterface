@@ -1,1 +1,1 @@
-# GameInterface
+# GameInterface for University Project.
