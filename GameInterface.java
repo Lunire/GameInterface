@@ -8,64 +8,64 @@ public class GameInterface extends JFrame {
     private JButton playButton;
     private JButton helpButton;
     private JButton quitButton;
-    private JButton MusicButton;
+    private JButton settingsButton;
+    private JButton memberButton;
     private JLabel label;
     private SoundTrack soundTrack;
-    private boolean MusicPlaying;
 
     public GameInterface() {
 
-        setTitle("Meteor Strike"); //--->ตรงนี้เดี่ยวเปลี่ยนใส่เป็นรูปภาพแทน
+        setTitle("Meteor Strike"); 
         setSize(1080, 720);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //----->เพื่อให้มีการกดตกลงก่อนแล้วค่อยปิดเฟรม
         setLocationRelativeTo(null);
+        getContentPane().setBackground(Color.BLACK);
 
-        ImageIcon MeteorIcon = new ImageIcon(System.getProperty("user.dir")
+        ImageIcon meteorIcon = new ImageIcon(System.getProperty("user.dir")
                     +File.separator + "Materials/MeteorIcon.png");
-        setIconImage(MeteorIcon.getImage());
+        setIconImage(meteorIcon.getImage());
 
         soundTrack = new SoundTrack(); //เป็นคลาสที่รับเสียงจากเครื่องผู้ใช้มา ไฟล์.wav
-        soundTrack.SoundBackground("Materials/to_the_shining_sky-241513.wav");
-
-        MusicPlaying = true;
-
-        MusicButton = createButton("Stop Music");
-        MusicButton.addActionListener(e -> {
-            if(MusicPlaying) {
-                soundTrack.stopBackground(); // หยุดเพลงพื้นหลัง
-                soundTrack.playSound("Materials/mouse-click-sound-233951.wav"); // เสียงคลิก
-                MusicPlaying = false; // เปลี่ยนสถานะเพลง
-                MusicButton.setText("Play Music"); // เปลี่ยนข้อความปุ่ม
-            }
-            else {
-                soundTrack.SoundBackground("Materials/to_the_shining_sky-241513.wav");    
-                soundTrack.playSound("Materials/mouse-click-sound-233951.wav"); // เสียงคลิก
-                MusicPlaying = true; // เปลี่ยนสถานะเพลง
-                MusicButton.setText("Stop Music"); // เปลี่ยนข้อความปุ่ม
-            }
-    });
+        soundTrack.soundBackground("Materials/to_the_shining_sky-241513.wav");
 
         // สร้างคอมโพเนนต์ต่าง ๆ
-        label = new JLabel("Meteor Strike!", SwingConstants.CENTER);
+        label = new JLabel("Meteor Strike!", SwingConstants.CENTER); //--->ตรงนี้อาจเปลี่ยนใส่เป็นรูปภาพแทน
         label.setFont(new Font("Serif", Font.BOLD, 24));
+        label.setForeground(Color.WHITE);
 
         //เมธอดบรรทัดที่ 83
         playButton = createButton("Play");
-        helpButton = createButton("Help");
+        helpButton = createButton("How to Play");
+        memberButton = createButton("Member");
+        settingsButton = createButton("Settings");
         quitButton = createButton("Quit");
 
+        //Event ของปุ่มต่างๆ
         playButton.addActionListener(e -> {
-            soundTrack.playSound("Materials/mouse-click-sound-233951.wav");
+            soundTrack.soundClick("Materials/mouse-click-sound-233951.wav");
+            PlayFrame play = new PlayFrame(this);
+            play.setVisible(true);
         });
 
         helpButton.addActionListener(e -> {
-            soundTrack.playSound("Materials/mouse-click-sound-233951.wav");
-            HelpOption(); //---->เมธอดบรรทัดที่ 107
+            soundTrack.soundClick("Materials/mouse-click-sound-233951.wav");
+            helpOption(); //---->เมธอดบรรทัดที่ 107
         });
 
         quitButton.addActionListener(e -> {
-            soundTrack.playSound("Materials/mouse-click-sound-233951.wav");
+            soundTrack.soundClick("Materials/mouse-click-sound-233951.wav");
             Exit(); //---->เมธอดบรรทัดที่ 96
+        });
+
+        settingsButton.addActionListener(e -> {
+            soundTrack.soundClick("Materials/mouse-click-sound-233951.wav");
+            SettingsOption settings = new SettingsOption(this);
+            settings.setVisible(true);
+        });
+
+        memberButton.addActionListener(e -> {
+            soundTrack.soundClick("Materials/mouse-click-sound-233951.wav");
+            //Coming Soon//
         });
 
         // ใช้ GridBagLayout สำหรับการจัดวางคอมโพเนนต์
@@ -83,11 +83,13 @@ public class GameInterface extends JFrame {
 
         // ตั้งค่าให้ button อยู่ตรงกลาง
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(4, 1, 10, 10)); // ใช้ GridLayout เพื่อจัดปุ่มในแนวตั้ง
+        panel.setLayout(new GridLayout(5, 1, 10, 10)); // ใช้ GridLayout เพื่อจัดปุ่มในแนวตั้ง
+        panel.setBackground(Color.BLACK);
         panel.add(playButton);
         panel.add(helpButton);
+        panel.add(memberButton);
+        panel.add(settingsButton);
         panel.add(quitButton);
-        panel.add(MusicButton);
 
         // ตั้งค่าให้ panel ปุ่มอยู่ตรงกลาง
         gbc.gridy = 1;
@@ -103,7 +105,6 @@ public class GameInterface extends JFrame {
                 Exit();
             }
         });
-
     }
 
     //เมธอดสร้างปุ่มต่างๆ
@@ -126,19 +127,19 @@ public class GameInterface extends JFrame {
     }
 
     //เมธอดหน้าต่างให้คำช่วยเหลือ
-    private void HelpOption(){
-        JDialog helpDialog = new JDialog(this, "Help Option", true); // ใส่ true เพื่อกำหนดว่าต้องปิดหน้านี้ก่อนถึงจะทำอย่างอื่นได้
+    private void helpOption(){
+        JDialog helpDialog = new JDialog(this, "How To Play", true); // ใส่ true เพื่อกำหนดว่าต้องปิดหน้านี้ก่อนถึงจะทำอย่างอื่นได้
         helpDialog.setSize(400, 300);
         helpDialog.setLocationRelativeTo(this);
         helpDialog.setLayout(new BorderLayout());
         helpDialog.setResizable(false);
         helpDialog.setBackground(Color.BLACK);
 
-        ImageIcon HelpIcon = new ImageIcon(System.getProperty("user.dir")
+        ImageIcon helpIcon = new ImageIcon(System.getProperty("user.dir")
                     +File.separator + "Materials/Question-mark.png");
-        helpDialog.setIconImage(HelpIcon.getImage());
+        helpDialog.setIconImage(helpIcon.getImage());
 
-        JTextArea text = new JTextArea("                      Help for the Meteor Strike Game:\n\n" + 
+        JTextArea text = new JTextArea("                  How To Play for the Meteor Strike Game:\n\n" + 
                 "       1. Start the game by clicking the Play button.\n" +
                 "       2. For more information, click the Help button again.\n" +
                 "       3. Click Quit to exit the game.");
@@ -156,3 +157,4 @@ public class GameInterface extends JFrame {
         GUI.setVisible(true);
     }
 }
+     

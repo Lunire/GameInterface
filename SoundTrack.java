@@ -4,7 +4,7 @@ import java.io.File;
 public class SoundTrack{
     private static Clip backgroundClip;
     
-        public static void playSound(String soundFileName) {
+        public static void soundClick(String soundFileName) {
     
             try{
                 AudioInputStream stream;
@@ -25,7 +25,7 @@ public class SoundTrack{
             }
         }
     
-        public static void SoundBackground(String backgroundSong) {
+        public static void soundBackground(String backgroundSong) {
     
             try{
                 AudioInputStream stream;
@@ -38,9 +38,10 @@ public class SoundTrack{
                 backgroundClip.start();
             }
             catch (Exception e){
-            e.printStackTrace();
+                e.printStackTrace();
             }
         }
+        //เมธอดเอาไว้หยุดเพลงพื้นหลัง
         public void stopBackground() {
             if (backgroundClip != null && backgroundClip.isRunning()) {
                 backgroundClip.stop();
