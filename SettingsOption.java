@@ -12,16 +12,17 @@ public class SettingsOption extends JDialog{
     setSize(400, 300);
     setLocationRelativeTo(main);
     setResizable(false);
+    getContentPane().setBackground(Color.BLACK);
 
     ImageIcon settingsIcon = new ImageIcon(System.getProperty("user.dir")
                 +File.separator + "Materials/Question-mark.png");
     setIconImage(settingsIcon.getImage());
 
     soundTrack = new SoundTrack();
-    isMusicPlaying = true;
+    isMusicPlaying = true; //----->กำหนดสถานะเพลง
 
     musicButton = new JButton("Stop Music");
-    musicButton.setFont(new Font("Serif", Font.PLAIN, 14)); //---->กำหนดฟอนต์
+    musicButton.setFont(new Font("Serif", Font.PLAIN, 14));
     musicButton.setPreferredSize(new Dimension(300, 50));
     musicButton.addActionListener(e -> {
         if(isMusicPlaying) {
@@ -38,12 +39,8 @@ public class SettingsOption extends JDialog{
         }
     });
 
-    setLayout(new GridBagLayout());
-    GridBagConstraints gbc = new GridBagConstraints();
-    gbc.gridx = 0;
-    gbc.gridy = 0;
-    gbc.insets = new Insets(10, 10, 10, 10); // ตั้งระยะห่างระหว่างคอมโพเนนต์
-    
-    add(musicButton, gbc);
+    setLayout(null);
+    musicButton.setBounds(50, 100, 300, 50);
+    add(musicButton);
     }
 }       

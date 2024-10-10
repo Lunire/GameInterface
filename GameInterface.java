@@ -26,14 +26,14 @@ public class GameInterface extends JFrame {
         setIconImage(meteorIcon.getImage());
 
         soundTrack = new SoundTrack(); //เป็นคลาสที่รับเสียงจากเครื่องผู้ใช้มา ไฟล์.wav
-        soundTrack.soundBackground("Materials/to_the_shining_sky-241513.wav");
+        soundTrack.soundBackground("Materials/to_the_shining_sky-241513.wav"); //---->เล่นเพลงพื้นหลัง
 
         // สร้างคอมโพเนนต์ต่าง ๆ
         label = new JLabel("Meteor Strike!", SwingConstants.CENTER); //--->ตรงนี้อาจเปลี่ยนใส่เป็นรูปภาพแทน
         label.setFont(new Font("Serif", Font.BOLD, 24));
         label.setForeground(Color.WHITE);
 
-        //เมธอดบรรทัดที่ 83
+        //เมธอดบรรทัดที่ 111 เป็นเมธอดไว้สำหรับสร้างปุ่ม
         playButton = createButton("Play");
         helpButton = createButton("How to Play");
         memberButton = createButton("Member");
@@ -49,12 +49,12 @@ public class GameInterface extends JFrame {
 
         helpButton.addActionListener(e -> {
             soundTrack.soundClick("Materials/mouse-click-sound-233951.wav");
-            helpOption(); //---->เมธอดบรรทัดที่ 107
+            helpOption(); //---->เมธอดบรรทัดที่ 130
         });
 
         quitButton.addActionListener(e -> {
             soundTrack.soundClick("Materials/mouse-click-sound-233951.wav");
-            Exit(); //---->เมธอดบรรทัดที่ 96
+            Exit(); //---->เมธอดบรรทัดที่ 119
         });
 
         settingsButton.addActionListener(e -> {
@@ -98,7 +98,7 @@ public class GameInterface extends JFrame {
 
         add(panel, gbc);
 
-        //Event ที่จะรอรับการกดกากบาตบนหน้าจอเฟรมหลักแล้วส่งไปที่เมธอดบรรทัดที่ 96
+        //Event ที่จะรอรับการกดกากบาตบนหน้าจอเฟรมหลักแล้วส่งไปที่เมธอดบรรทัดที่ 119
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {

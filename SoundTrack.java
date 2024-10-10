@@ -34,7 +34,7 @@ public class SoundTrack{
                 stream = AudioSystem.getAudioInputStream(initialFile);
                 backgroundClip = AudioSystem.getClip();
                 backgroundClip.open(stream);
-                backgroundClip.loop(Clip.LOOP_CONTINUOUSLY);
+                backgroundClip.loop(Clip.LOOP_CONTINUOUSLY); //----->กำหนดให้เป็นloopเพื่อเล่นเพลงพื้นหลัง
                 backgroundClip.start();
             }
             catch (Exception e){

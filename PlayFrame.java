@@ -13,14 +13,18 @@ public class PlayFrame extends JDialog{
         setLocationRelativeTo(main);
         setResizable(false);
         setLayout(null);
-        setBackground(Color.BLACK);
+        getContentPane().setBackground(Color.BLACK);
 
         soundTrack = new SoundTrack(); 
         
         JLabel UID = new JLabel("UID:");
+        UID.setForeground(Color.WHITE);
         UIDField = new JTextField();
+
         JLabel user = new JLabel("UserName:");
+        user.setForeground(Color.WHITE);
         usernameField = new JTextField();
+        
         button = new JButton("OK");
         button.addActionListener(e -> {
             soundTrack.soundClick("Materials/mouse-click-sound-233951.wav");
