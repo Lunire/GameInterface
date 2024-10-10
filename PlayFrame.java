@@ -27,7 +27,7 @@ public class PlayFrame extends JDialog{
         
         button = new JButton("OK");
         button.addActionListener(e -> {
-            soundTrack.soundClick("Materials/mouse-click-sound-233951.wav");
+            soundTrack.sound("Materials/mouse-click-sound-233951.wav");
             //Comming Soon//
         });
 

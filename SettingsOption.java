@@ -15,7 +15,7 @@ public class SettingsOption extends JDialog{
     getContentPane().setBackground(Color.BLACK);
 
     ImageIcon settingsIcon = new ImageIcon(System.getProperty("user.dir")
-                +File.separator + "Materials/Question-mark.png");
+                +File.separator + "Materials/SettingsIcon.png");
     setIconImage(settingsIcon.getImage());
 
     soundTrack = new SoundTrack();
@@ -27,13 +27,13 @@ public class SettingsOption extends JDialog{
     musicButton.addActionListener(e -> {
         if(isMusicPlaying) {
             soundTrack.stopBackground(); //----->หยุดเพลงพื้นหลัง
-            soundTrack.soundClick("Materials/mouse-click-sound-233951.wav");
+            soundTrack.sound("Materials/mouse-click-sound-233951.wav");
             isMusicPlaying = false; //------>เปลี่ยนสถานะเพลง
             musicButton.setText("Play Music"); //----->เปลี่ยนข้อความบนปุ่ม
         }
         else {
             soundTrack.soundBackground("Materials/to_the_shining_sky-241513.wav");    
-            soundTrack.soundClick("Materials/mouse-click-sound-233951.wav");
+            soundTrack.sound("Materials/mouse-click-sound-233951.wav");
             isMusicPlaying = true; //------>เปลี่ยนสถานะเพลง
             musicButton.setText("Stop Music"); //------->เปลี่ยนข้อความบนปุ่ม
         }

@@ -29,11 +29,11 @@ public class GameInterface extends JFrame {
         soundTrack.soundBackground("Materials/to_the_shining_sky-241513.wav"); //---->เล่นเพลงพื้นหลัง
 
         // สร้างคอมโพเนนต์ต่าง ๆ
-        label = new JLabel("Meteor Strike!", SwingConstants.CENTER); //--->ตรงนี้อาจเปลี่ยนใส่เป็นรูปภาพแทน
-        label.setFont(new Font("Serif", Font.BOLD, 24));
+        label = new JLabel("Meteor Strike!", SwingConstants.CENTER);
+        label.setFont(new Font("Serif", Font.BOLD, 44));
         label.setForeground(Color.WHITE);
 
-        //เมธอดบรรทัดที่ 111 เป็นเมธอดไว้สำหรับสร้างปุ่ม
+        //เมธอดบรรทัดที่ 113 เป็นเมธอดไว้สำหรับสร้างปุ่ม
         playButton = createButton("Play");
         helpButton = createButton("How to Play");
         memberButton = createButton("Member");
@@ -42,36 +42,37 @@ public class GameInterface extends JFrame {
 
         //Event ของปุ่มต่างๆ
         playButton.addActionListener(e -> {
-            soundTrack.soundClick("Materials/mouse-click-sound-233951.wav");
+            soundTrack.sound("Materials/mouse-click-sound-233951.wav");
             PlayFrame play = new PlayFrame(this);
             play.setVisible(true);
         });
 
         helpButton.addActionListener(e -> {
-            soundTrack.soundClick("Materials/mouse-click-sound-233951.wav");
-            helpOption(); //---->เมธอดบรรทัดที่ 130
+            soundTrack.sound("Materials/mouse-click-sound-233951.wav");
+            Help help = new Help(this);
+            help.setVisible(true);
         });
 
         quitButton.addActionListener(e -> {
-            soundTrack.soundClick("Materials/mouse-click-sound-233951.wav");
-            Exit(); //---->เมธอดบรรทัดที่ 119
+            soundTrack.sound("Materials/mouse-click-sound-233951.wav");
+            Exit(); //---->เมธอดบรรทัดที่ 121
         });
 
         settingsButton.addActionListener(e -> {
-            soundTrack.soundClick("Materials/mouse-click-sound-233951.wav");
+            soundTrack.sound("Materials/mouse-click-sound-233951.wav");
             SettingsOption settings = new SettingsOption(this);
             settings.setVisible(true);
         });
 
         memberButton.addActionListener(e -> {
-            soundTrack.soundClick("Materials/mouse-click-sound-233951.wav");
+            soundTrack.sound("Materials/mouse-click-sound-233951.wav");
             //Coming Soon//
         });
 
         // ใช้ GridBagLayout สำหรับการจัดวางคอมโพเนนต์
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10); // ตั้งระยะห่างระหว่างคอมโพเนนต์
+        gbc.insets = new Insets(100, 10, 10, 10); // ตั้งระยะห่างระหว่างคอมโพเนนต์
 
         // ตั้งค่าให้ text อยู่ด้านบนสุดและอยู่ตรงกลางเฟรม
         gbc.gridx = 0;
@@ -79,6 +80,7 @@ public class GameInterface extends JFrame {
         gbc.gridwidth = 1;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(40, 10, 10, 10);
         add(label, gbc);
 
         // ตั้งค่าให้ button อยู่ตรงกลาง
@@ -98,7 +100,7 @@ public class GameInterface extends JFrame {
 
         add(panel, gbc);
 
-        //Event ที่จะรอรับการกดกากบาตบนหน้าจอเฟรมหลักแล้วส่งไปที่เมธอดบรรทัดที่ 119
+        //Event ที่จะรอรับการกดกากบาตบนหน้าจอเฟรมหลักแล้วส่งไปที่เมธอดบรรทัดที่ 121
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -124,32 +126,6 @@ public class GameInterface extends JFrame {
         if (confirmed == JOptionPane.YES_OPTION) {
             System.exit(1);
         }
-    }
-
-    //เมธอดหน้าต่างให้คำช่วยเหลือ
-    private void helpOption(){
-        JDialog helpDialog = new JDialog(this, "How To Play", true); // ใส่ true เพื่อกำหนดว่าต้องปิดหน้านี้ก่อนถึงจะทำอย่างอื่นได้
-        helpDialog.setSize(400, 300);
-        helpDialog.setLocationRelativeTo(this);
-        helpDialog.setLayout(new BorderLayout());
-        helpDialog.setResizable(false);
-        helpDialog.setBackground(Color.BLACK);
-
-        ImageIcon helpIcon = new ImageIcon(System.getProperty("user.dir")
-                    +File.separator + "Materials/Question-mark.png");
-        helpDialog.setIconImage(helpIcon.getImage());
-
-        JTextArea text = new JTextArea("                  How To Play for the Meteor Strike Game:\n\n" + 
-                "       1. Start the game by clicking the Play button.\n" +
-                "       2. For more information, click the Help button again.\n" +
-                "       3. Click Quit to exit the game.");
-        text.setEditable(false); 
-        text.setFont(new Font("Serif", Font.PLAIN, 14));   
-        text.setForeground(Color.WHITE);
-        text.setBackground(helpDialog.getBackground());
-        
-        helpDialog.add(text, BorderLayout.CENTER);
-        helpDialog.setVisible(true);
     }
 
     public static void main(String[] args) {
