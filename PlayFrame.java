@@ -14,6 +14,7 @@ public class PlayFrame extends JDialog{
         setResizable(false);
         setLayout(null);
         getContentPane().setBackground(Color.BLACK);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         soundTrack = new SoundTrack(); 
         
@@ -35,7 +36,7 @@ public class PlayFrame extends JDialog{
         UIDField.setBounds(150, 50, 200, 30);
         user.setBounds(30, 100, 100, 30);
         usernameField.setBounds(150, 100, 200, 30);
-        button.setBounds(150, 150, 100, 30);
+        button.setBounds(150, 150, 200, 30);
 
         add(UID);
         add(UIDField);

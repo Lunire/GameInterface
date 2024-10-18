@@ -55,7 +55,7 @@ class Helps extends JPanel {
             "4. ถ้าลูกบอลเข้าฝั่งคุณ ผู้เล่นคนอื่นจะได้คะแนน \n" +
             "5. เล่นจนกว่าจะมีผู้ชนะที่กำหนดตามคะแนน"
         );
-        helpText.setFont(new Font("Tahoma", Font.PLAIN, 18)); 
+        helpText.setFont(new Font("Tahoma", Font.PLAIN, 16)); 
         helpText.setForeground(Color.WHITE);
         helpText.setBackground(Color.BLACK);
         helpText.setEditable(false); // ป้องกันการแก้ไขข้อความ

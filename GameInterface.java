@@ -16,7 +16,7 @@ public class GameInterface extends JFrame {
     public GameInterface() {
 
         setTitle("Meteor Strike"); 
-        setSize(1080, 720);
+        setSize(1600, 900);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //----->เพื่อให้มีการกดตกลงก่อนแล้วค่อยปิดเฟรม
         setLocationRelativeTo(null);
         getContentPane().setBackground(Color.BLACK);
@@ -66,7 +66,8 @@ public class GameInterface extends JFrame {
 
         memberButton.addActionListener(e -> {
             soundTrack.sound("Materials/mouse-click-sound-233951.wav");
-            //Coming Soon//
+            new member(this); // ส่ง GameInterface ไปที่ Member
+            this.setVisible(false); // ซ่อน MainClass    
         });
 
         // ใช้ GridBagLayout สำหรับการจัดวางคอมโพเนนต์
@@ -129,8 +130,8 @@ public class GameInterface extends JFrame {
     }
 
     public static void main(String[] args) {
-        GameInterface GUI = new GameInterface();
-        GUI.setVisible(true);
+        GameInterface main = new GameInterface();
+        main.setVisible(true);
     }
 }
-     
+  

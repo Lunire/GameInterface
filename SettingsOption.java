@@ -13,6 +13,7 @@ public class SettingsOption extends JDialog{
     setLocationRelativeTo(main);
     setResizable(false);
     getContentPane().setBackground(Color.BLACK);
+    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
     ImageIcon settingsIcon = new ImageIcon(System.getProperty("user.dir")
                 +File.separator + "Materials/SettingsIcon.png");
