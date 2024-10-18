@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 
 public class member extends JFrame {
     private GameInterface mainInterface; // อ้างอิงไปที่ GameInterface
+    private SoundTrack soundTrack;
 
     public member (GameInterface mainInterface){
         this.mainInterface = mainInterface; // รับอ้างอิงจาก GameInterface
@@ -16,6 +17,8 @@ public class member extends JFrame {
         setLocationRelativeTo(null);
         setLayout(null);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // ไม่ให้ปิดหน้าต่างโดยตรง
+
+        soundTrack = new SoundTrack(); 
 
         JLabel imgLabel1 = new JLabel();
         JLabel imgLabel2 = new JLabel();
