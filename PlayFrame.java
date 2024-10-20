@@ -29,6 +29,21 @@ public class PlayFrame extends JDialog{
         usernameField = new JTextField();
         
         button = new JButton("OK");
+        button.setForeground(Color.WHITE);
+        button.setBackground(Color.DARK_GRAY);
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+
+        // เอฟเฟกต์เปลี่ยนสีเมื่อ hover ปุ่ม
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                button.setBackground(Color.GRAY);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                button.setBackground(Color.DARK_GRAY);
+            }
+        });
         button.addActionListener(e -> {
             soundTrack.sound("Materials/mouse-click-sound-233951.wav");
             if (usernameField.getText().length() == 0) { // ใช้ length() ตรวจสอบความยาว

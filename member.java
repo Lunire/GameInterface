@@ -1,6 +1,8 @@
 
 import java.awt.Color;
 import java.awt.Font;
+
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,6 +19,7 @@ public class member extends JFrame {
         setLocationRelativeTo(null);
         setLayout(null);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // ไม่ให้ปิดหน้าต่างโดยตรง
+        getContentPane().setBackground(Color.BLACK);
 
         soundTrack = new SoundTrack(); 
 
@@ -49,22 +52,22 @@ public class member extends JFrame {
 
         label1.setText("<html> ชื่อ : นายชวกร บัญดิษฐตา <br> รหัสนิสิต : 66011212084 </html>");
         label1.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 20));
-        label1.setForeground(Color.black);
+        label1.setForeground(Color.WHITE);
         label1.setBounds(50, 550, 300, 200);
 
         label2.setText("<html> ชื่อ : นายศิริวัฒน์ จันทมนตรี <br> รหัสนิสิต : 66011212136 </html>");
         label2.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 20));
-        label2.setForeground(Color.black);
+        label2.setForeground(Color.WHITE);
         label2.setBounds(400, 550, 300, 200);
 
         label3.setText("<html> ชื่อ : นายณฐกฤต นาสุวรรณ <br> รหัสนิสิต : 66011212165 </html>");
         label3.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 20));
-        label3.setForeground(Color.black);
+        label3.setForeground(Color.WHITE);
         label3.setBounds(850, 550, 300, 200);
 
         label4.setText("<html> ชื่อ : นายสิทธิชัย ศรีนัคเรศ <br> รหัสนิสิต : 66011212225 </html>");
         label4.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 20));
-        label4.setForeground(Color.black);
+        label4.setForeground(Color.WHITE);
         label4.setBounds(1250, 550, 300, 200);
 
         add(label1);
@@ -72,13 +75,29 @@ public class member extends JFrame {
         add(label3);
         add(label4);
 
-         // สร้างปุ่ม Home Menu และวางไว้ที่มุมซ้ายบน
-         JButton homeButton = new JButton("Home Menu");
-         homeButton.setFont(new Font("Serif", Font.BOLD, 18));  
-         homeButton.setBounds(20, 20, 150, 40);      // จัดตำแหน่งของปุ่มให้อยู่มุมซ้ายบน
+        // สร้างปุ่ม Home Menu และวางไว้ที่มุมซ้ายบน
+        JButton homeButton = new JButton("Home Menu");
+        homeButton.setFont(new Font("Serif", Font.BOLD, 18));  
+        homeButton.setBounds(20, 20, 150, 40);      // จัดตำแหน่งของปุ่มให้อยู่มุมซ้ายบน
+        homeButton.setForeground(Color.WHITE);
+        homeButton.setBackground(Color.DARK_GRAY);
+        homeButton.setFocusPainted(false);
+        homeButton.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+
+        // เอฟเฟกต์เปลี่ยนสีเมื่อ hover ปุ่ม
+        homeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                homeButton.setBackground(Color.GRAY);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                homeButton.setBackground(Color.DARK_GRAY);
+            }
+        });
          homeButton.addActionListener(e -> {
-             mainInterface.setVisible(true); // กลับไปที่ GameInterface
-             dispose(); // ปิดหน้าต่าง member เมื่อคลิกปุ่ม
+            soundTrack.sound("Materials/mouse-click-sound-233951.wav");
+            mainInterface.setVisible(true); // กลับไปที่ GameInterface
+            dispose(); // ปิดหน้าต่าง member เมื่อคลิกปุ่ม
          });
          add(homeButton); 
 

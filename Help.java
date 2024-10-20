@@ -50,8 +50,7 @@ class Helps extends JPanel {
             "2. ใช้แป้นพิมพ์เพื่อควบคุม Paddle ของคุณ: \n" +
             "   - ผู้เล่นบังคับโดยใช้: ปุ่ม W และ S \n" +
             "   - หรือ ปุ่มลูกศรขึ้นและลงก็ได้\n" +
-            "3. เป้าหมายของคุณคือการเด้งลูกบอลและป้องกันไม่ให้ลูกบอลออกนอกสนาม \n" +
-            "ฝั่งของคุณ \n" +
+            "3. เป้าหมายของคุณคือการเด้งลูกบอลและป้องกันไม่ให้ลูกบอลออกนอกสนามฝั่งของคุณ \n" +
             "4. ถ้าลูกบอลเข้าฝั่งคุณ ผู้เล่นคนอื่นจะได้คะแนน \n" +
             "5. เล่นจนกว่าจะมีผู้ชนะที่กำหนดตามคะแนน"
         );
@@ -74,6 +73,21 @@ class Helps extends JPanel {
         JButton closeButton = new JButton("Close");
         closeButton.setFont(new Font("Serif", Font.PLAIN, 18));
         closeButton.setBounds(300, 400, 120, 30); // กำหนดตำแหน่ง X, Y ของปุ่ม
+        closeButton.setForeground(Color.WHITE);
+        closeButton.setBackground(Color.DARK_GRAY);
+        closeButton.setFocusPainted(false);
+        closeButton.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+
+        // เอฟเฟกต์เปลี่ยนสีเมื่อ hover ปุ่ม
+        closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                closeButton.setBackground(Color.GRAY);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                closeButton.setBackground(Color.DARK_GRAY);
+            }
+        });
         closeButton.addActionListener(e -> 
             ((JDialog) SwingUtilities.getWindowAncestor(closeButton)).dispose()); // ปิด dialog เมื่อคลิก
         add(closeButton); // เพิ่มปุ่มลงใน JPanel
