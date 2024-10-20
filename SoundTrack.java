@@ -52,4 +52,9 @@ public class SoundTrack{
                 backgroundClip.close();
             }
         }
+
+        //เมธอดสำหรับตรวจสอบว่าเพลงพื้นหลังเล่นอยู่หรือปล่าว
+        public boolean isMusicBackgroundPlaying(){
+            return backgroundClip != null && backgroundClip.isRunning();
+        }
 }

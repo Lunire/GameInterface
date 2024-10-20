@@ -6,10 +6,11 @@ public class SettingsOption extends JDialog {
     private JButton musicButton;
     private SoundTrack soundTrack;
     private boolean isMusicPlaying;
+    private GameInterface main; // อ้างอิงไปที่ GameInterface
 
-    public SettingsOption(JFrame main) {
+    public SettingsOption(GameInterface main) {
         super(main, "Settings Option", true);
-        setSize(400, 300);
+        setSize(400, 400);
         setLocationRelativeTo(main);
         setResizable(false);
         getContentPane().setBackground(Color.BLACK);
@@ -20,9 +21,13 @@ public class SettingsOption extends JDialog {
         setIconImage(settingsIcon.getImage());
 
         soundTrack = new SoundTrack();
-        isMusicPlaying = true; // ----->กำหนดสถานะเพลง
+        this.main = main; // รับอ้างอิงจาก GameInterface
 
-        musicButton = new JButton("Stop Music");
+        //ตรวจสอบสถานะเพลง
+        isMusicPlaying = soundTrack.isMusicBackgroundPlaying();
+        main.isMusicPlaying = isMusicPlaying;
+        musicButton = new JButton(isMusicPlaying ? "Stop Music" : "Play Music");
+
         musicButton.setFont(new Font("Serif", Font.PLAIN, 14));
         musicButton.setPreferredSize(new Dimension(300, 50));
         musicButton.setForeground(Color.WHITE);
@@ -53,6 +58,7 @@ public class SettingsOption extends JDialog {
                 musicButton.setText("Stop Music"); // ------->เปลี่ยนข้อความบนปุ่ม
             }
         });
+        main.isMusicPlaying = isMusicPlaying; // Update สถานะต่างๆบนเฟรมหลัก
 
         setLayout(null);
         musicButton.setBounds(50, 100, 300, 50);

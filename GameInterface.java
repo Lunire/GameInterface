@@ -21,6 +21,7 @@ public class GameInterface extends JFrame {
     private JLabel label;
     private SoundTrack soundTrack;
     private Background background;
+    public boolean isMusicPlaying;
 
     public GameInterface() {
 
