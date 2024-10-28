@@ -11,7 +11,7 @@ public class PlayFrame extends JDialog{
 
     public PlayFrame(JFrame main){
         super(main, "", true); 
-        setSize(400, 300);
+        setSize(400, 275);
         setLocationRelativeTo(main);
         setResizable(false);
         setLayout(null);
@@ -44,19 +44,18 @@ public class PlayFrame extends JDialog{
                 button.setBackground(Color.DARK_GRAY);
             }
         });
+        
         button.addActionListener(e -> {
             soundTrack.sound("Materials/mouse-click-sound-233951.wav");
             if (usernameField.getText().length() == 0) { // ใช้ length() ตรวจสอบความยาว
                 JOptionPane.showMessageDialog(this, "Please enter a username.", "Input Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 //comming soon//
+                System.out.println("IP: " + IPField.getText());
                 System.out.println("Username: " + usernameField.getText());
                 dispose(); // ปิดหน้าต่าง
             }
         });
-
-        IPField.setText(IPAddress.getLocalIPAddress()); // แสดง IP Address ที่ได้รับ
-        IPField.setEditable(false);
 
         IP.setBounds(30, 50, 100, 30);
         IPField.setBounds(150, 50, 200, 30);
@@ -70,17 +69,4 @@ public class PlayFrame extends JDialog{
         add(usernameField);
         add(button);
    }
-}
-
-// รับ IP Address ของเครื่อง
-class IPAddress {
-    public static String getLocalIPAddress() {
-        try {
-            InetAddress inetAddress = InetAddress.getLocalHost();
-            return inetAddress.getHostAddress(); // คืนค่า IP Address
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-            return "Unknown IP"; // ถ้าเกิดข้อผิดพลาด
-        }
-    }
 }
