@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 public class PlayFrame extends JDialog{
     private JTextField IPField;
@@ -51,8 +49,6 @@ public class PlayFrame extends JDialog{
                 JOptionPane.showMessageDialog(this, "Please enter a username.", "Input Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 //comming soon//
-                System.out.println("IP: " + IPField.getText());
-                System.out.println("Username: " + usernameField.getText());
                 dispose(); // ปิดหน้าต่าง
             }
         });

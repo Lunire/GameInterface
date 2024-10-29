@@ -57,4 +57,15 @@ public class SoundTrack{
         public boolean isMusicBackgroundPlaying(){
             return backgroundClip != null && backgroundClip.isRunning();
         }
+
+		public void setVolume(int volume) {
+			if (backgroundClip != null) {
+                FloatControl control = (FloatControl) backgroundClip.getControl(FloatControl.Type.MASTER_GAIN);
+                float min = control.getMinimum();
+                float max = control.getMaximum();
+                float scale = (volume / 100f) * 0.70f + 0.30f;
+                float dB = min + (max - min) * scale;
+                control.setValue(dB);
+            }
+		}
 }

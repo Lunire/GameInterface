@@ -3,14 +3,20 @@ import java.awt.*;
 import java.io.File;
 
 public class SettingsOption extends JDialog {
-    private JButton musicButton;
     private SoundTrack soundTrack;
     private boolean isMusicPlaying;
+    private JSlider volumeSlider;
+    private JComboBox<String> musicSelector;
     private GameInterface main; // อ้างอิงไปที่ GameInterface
+    private final String[][] musicOptions = {
+        {"To The Shining Sky", "Materials/music1.wav"},
+        {"Candy Vocal", "Materials/music2.wav"},
+        {"In To The Fire", "Materials/music3.wav"}
+    };
 
     public SettingsOption(GameInterface main) {
         super(main, "Settings Option", true);
-        setSize(400, 400);
+        setSize(400, 300);
         setLocationRelativeTo(main);
         setResizable(false);
         getContentPane().setBackground(Color.BLACK);
@@ -26,42 +32,88 @@ public class SettingsOption extends JDialog {
         //ตรวจสอบสถานะเพลง
         isMusicPlaying = soundTrack.isMusicBackgroundPlaying();
         main.isMusicPlaying = isMusicPlaying;
-        musicButton = new JButton(isMusicPlaying ? "Stop Music" : "Play Music");
 
-        musicButton.setFont(new Font("Serif", Font.PLAIN, 14));
-        musicButton.setPreferredSize(new Dimension(300, 50));
-        musicButton.setForeground(Color.WHITE);
-        musicButton.setBackground(Color.DARK_GRAY);
-        musicButton.setFocusPainted(false);
-        musicButton.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+        JLabel volumeLabel = new JLabel("Volume");
+        volumeLabel.setFont(new Font("Serif", Font.PLAIN, 12));
+        volumeLabel.setForeground(Color.WHITE);
+        int volume = main.getVolume(); // รับค่าระดับเสียงจาก GameInterface
+        volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, volume);
+        volumeSlider.setMajorTickSpacing(25);
+        volumeSlider.setBackground(Color.black);
+        volumeSlider.addChangeListener(e -> {
+            int value = volumeSlider.getValue();
+            soundTrack.setVolume(value);
+            main.setVolume(value); // อัปเดตสถานะเสียงใน GameInterface
+        });
+
+        JLabel musicLabel = new JLabel("Music");
+        musicLabel.setFont(new Font("Serif", Font.PLAIN, 12));
+        musicLabel.setForeground(Color.WHITE);
+        // สร้าง JComboBox สำหรับเลือกเพลง
+        String[] musicNames = {musicOptions[0][0], musicOptions[1][0], musicOptions[2][0]};
+        musicSelector = new JComboBox<>(musicNames);
+        musicSelector.setBackground(Color.BLACK);
+        musicSelector.setForeground(Color.WHITE);
+
+        // ตั้งค่า JComboBox ให้ตรงกับเพลงที่ถูกบันทึกใน GameInterface
+        musicSelector.setSelectedItem(main.getCurrentMusic());
+
+        musicSelector.addActionListener(e -> {
+            // หยุดเพลงก่อนหน้านี้
+            if (isMusicPlaying) {
+                soundTrack.stopBackground(); // ฟังก์ชันหยุดเพลง
+            }
+
+            String selectedMusic = (String) musicSelector.getSelectedItem();
+            String musicFile = ""; // ตัวแปรสำหรับเก็บไฟล์เพลง
+            
+            // หาชื่อไฟล์เพลงจากชื่อเพลงที่เลือก
+            for (String[] option : musicOptions) {
+                if (option[0].equals(selectedMusic)) {
+                    musicFile = option[1];
+                    break;
+                }
+            }
+
+            // เล่นเพลงใหม่
+            soundTrack.soundBackground(musicFile);
+            soundTrack.setVolume(volumeSlider.getValue());
+            isMusicPlaying = true;
+            main.setCurrentMusic(selectedMusic);
+        });
+
+        // สร้างปุ่มปิด
+        JButton closeButton = new JButton("Close");
+        closeButton.setFont(new Font("Serif", Font.PLAIN, 14));
+        closeButton.setBounds(135, 210, 120, 30); // กำหนดตำแหน่ง X, Y ของปุ่ม
+        closeButton.setForeground(Color.WHITE);
+        closeButton.setBackground(Color.DARK_GRAY);
+        closeButton.setFocusPainted(false);
+        closeButton.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
 
         // เอฟเฟกต์เปลี่ยนสีเมื่อ hover ปุ่ม
-        musicButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                musicButton.setBackground(Color.GRAY);
+                closeButton.setBackground(Color.GRAY);
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                musicButton.setBackground(Color.DARK_GRAY);
+                closeButton.setBackground(Color.DARK_GRAY);
             }
         });
-        musicButton.addActionListener(e -> {
-            if (isMusicPlaying) {
-                soundTrack.stopBackground(); // ----->หยุดเพลงพื้นหลัง
-                soundTrack.sound("Materials/mouse-click-sound-233951.wav");
-                isMusicPlaying = false; // ------>เปลี่ยนสถานะเพลง
-                musicButton.setText("Play Music"); // ----->เปลี่ยนข้อความบนปุ่ม
-            } else {
-                soundTrack.soundBackground("Materials/to_the_shining_sky-241513.wav");
-                soundTrack.sound("Materials/mouse-click-sound-233951.wav");
-                isMusicPlaying = true; // ------>เปลี่ยนสถานะเพลง
-                musicButton.setText("Stop Music"); // ------->เปลี่ยนข้อความบนปุ่ม
-            }
-        });
-        main.isMusicPlaying = isMusicPlaying; // Update สถานะต่างๆบนเฟรมหลัก
-
+        closeButton.addActionListener(e -> 
+            ((JDialog) SwingUtilities.getWindowAncestor(closeButton)).dispose()); // ปิด dialog เมื่อคลิก
+        
         setLayout(null);
-        musicButton.setBounds(50, 100, 300, 50);
-        add(musicButton);
+        volumeLabel.setBounds(25, 50, 300, 50);
+        volumeSlider.setBounds(70, 53, 300, 50);
+        musicLabel.setBounds(25, 125, 300, 50);
+        musicSelector.setBounds(80, 135, 275, 30); // ตั้งค่าตำแหน่งและขนาดของ JComboBox
+
+        add(volumeLabel);
+        add(volumeSlider);
+        add(musicLabel);
+        add(musicSelector);
+        add(closeButton);
     }
 }

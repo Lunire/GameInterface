@@ -13,6 +13,8 @@ public class GameInterface extends JFrame {
     private JLabel label;
     private SoundTrack soundTrack;
     public boolean isMusicPlaying;
+    private int volume = 100; // ค่าเริ่มต้น
+    private String currentMusic;
 
     public GameInterface() {
 
@@ -27,7 +29,7 @@ public class GameInterface extends JFrame {
         setIconImage(meteorIcon.getImage());
 
         soundTrack = new SoundTrack(); //เป็นคลาสที่รับเสียงจากเครื่องผู้ใช้มา ไฟล์.wav
-        soundTrack.soundBackground("Materials/to_the_shining_sky-241513.wav"); //---->เล่นเพลงพื้นหลัง
+        soundTrack.soundBackground("Materials/music1.wav"); //---->เล่นเพลงพื้นหลัง
 
         // สร้างคอมโพเนนต์ต่าง ๆ
         label = new JLabel("Meteor Strike!", SwingConstants.CENTER);
@@ -141,8 +143,25 @@ public class GameInterface extends JFrame {
                 "Quit Confirmation",
                 JOptionPane.YES_NO_OPTION);
         if (confirmed == JOptionPane.YES_OPTION) {
-            System.exit(1);
+            System.exit(0);
         }
+    }
+
+    public int getVolume() {
+        return volume;
+    }
+    
+    public void setVolume(int volume) {
+        this.volume = volume;
+        soundTrack.setVolume(volume);
+    }
+
+    public String getCurrentMusic() {
+        return currentMusic;
+    }
+
+    public void setCurrentMusic(String music) {
+        this.currentMusic = music;
     }
 
     public static void main(String[] args) {
