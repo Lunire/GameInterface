@@ -51,11 +51,16 @@ public class PlayFrame extends JDialog{
             if (portField.getText().length() == 0 || IPField.getText().length() == 0) { // ใช้ length() ตรวจสอบความยาว
                 JOptionPane.showMessageDialog(this, "Please enter a IP or Port.", "Input Error", JOptionPane.ERROR_MESSAGE);
             } else {
+              try {
                 GameClient gameClient = new GameClient(IPField.getText(), Integer.parseInt(portField.getText()));
                 gameClient.startClient();
 
                 dispose(); // ปิดหน้าต่าง
                 main.dispose(); //ปิดหน้าหลัก
+            } catch (NumberFormatException ex) {
+                System.err.println("Invalid port input: " + portField.getText());
+                JOptionPane.showMessageDialog(this, "Please enter a valid Port number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            }
             }
         });
 
